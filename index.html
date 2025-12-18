@@ -1,0 +1,502 @@
+﻿<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>یلدای رویالی | فال حافظ</title>
+
+<!-- فونت‌های فارسی (وزیرمتن و نستعلیق) -->
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+<style>@import url('https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@700&display=swap');</style>
+
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+yalda: {
+red: '#4a0404', // قرمز اناری تیره
+dark: '#0f0202', // مشکی مایل به قرمز
+gold: '#d4af37', // طلایی لوکس
+light: '#fff8dc' // کرمی روشن
+}
+},
+fontFamily: {
+sans: ['Vazirmatn', 'sans-serif'],
+serif: ['"Scheherazade New"', 'serif'],
+},
+animation: {
+'float': 'float 6s ease-in-out infinite',
+'glow': 'glow 3s ease-in-out infinite alternate',
+},
+keyframes: {
+float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
+glow: { 'from': { boxShadow: '0 0 5px #d4af37' }, 'to': { boxShadow: '0 0 20px #d4af37, 0 0 10px #4a0404' } }
+}
+}
+}
+}
+</script>
+
+<style>
+body {
+background-color: #050101;
+background-image: radial-gradient(circle at center, #3d0303 0%, #000000 100%);
+color: #f3f4f6;
+overflow-x: hidden;
+}
+/* پترن اسلیمی ظریف در پس‌زمینه */
+.persian-pattern {
+background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4af37' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+/* افکت شیشه‌ای پنل‌ها */
+.glass-panel {
+background: rgba(20, 0, 0, 0.6);
+backdrop-filter: blur(16px);
+-webkit-backdrop-filter: blur(16px);
+border: 1px solid rgba(212, 175, 55, 0.3);
+box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+}
+.luxury-input::placeholder { color: rgba(212, 175, 55, 0.4); }
+.loader {
+border: 2px solid rgba(212, 175, 55, 0.1);
+border-left-color: #d4af37;
+border-radius: 50%;
+width: 24px; height: 24px;
+animation: spin 1s linear infinite;
+}
+@keyframes spin { 100% { transform: rotate(360deg); } }
+</style>
+</head>
+<body class="min-h-screen flex items-center justify-center persian-pattern antialiased p-4">
+
+<main class="w-full max-w-md mx-auto relative z-10">
+
+<!-- لوگو و هدر -->
+<div class="text-center mb-8 animate-float">
+<div class="w-24 h-24 mx-auto mb-3 relative drop-shadow-[0_0_15px_rgba(212,175,55,0.4)]">
+<!-- آیکون انار هندسی -->
+<svg viewBox="0 0 100 100" class="w-full h-full">
+<path d="M50 10 C20 10 5 35 5 60 C5 85 20 95 50 95 C80 95 95 85 95 60 C95 35 80 10 50 10 Z" fill="url(#grad1)" stroke="#d4af37" stroke-width="1.5"/>
+<defs>
+<linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" style="stop-color:#880000;stop-opacity:1" />
+<stop offset="100%" style="stop-color:#4a0404;stop-opacity:1" />
+</linearGradient>
+</defs>
+<path d="M50 2 L40 15 L50 10 L60 15 Z" fill="#d4af37"/>
+<circle cx="50" cy="50" r="30" fill="none" stroke="#d4af37" stroke-width="0.5" stroke-opacity="0.5"/>
+</svg>
+</div>
+<h1 class="text-4xl font-serif text-yalda-gold mb-1 drop-shadow-lg tracking-wide">یلدای رویالی</h1>
+<p class="text-xs text-gray-400 tracking-[0.2em] uppercase">Royal Pars Shopping Center</p>
+</div>
+
+<!-- صفحه ۱: ورود شماره -->
+<section id="page-login" class="glass-panel rounded-3xl p-8 transition-all duration-700 transform hover:border-yalda-gold/50">
+<div class="text-center space-y-6">
+<div class="space-y-2">
+<h2 class="text-xl text-white font-medium">نیت کنید...</h2>
+<p class="text-sm text-gray-300 font-light leading-relaxed">
+در این شب بلند، شماره همراه خود را وارد کنید تا<br>حافظ شیرازی پاسخ نیت شما را بدهد.
+</p>
+</div>
+
+<div class="relative group">
+<input type="tel" id="phoneNumber" placeholder="۰۹۱۲۳۴۵۶۷۸۹"
+class="luxury-input w-full bg-black/40 border border-yalda-gold/30 text-white text-center rounded-2xl p-4 outline-none focus:border-yalda-gold focus:ring-1 focus:ring-yalda-gold/50 transition-all dir-ltr font-sans text-xl tracking-widest"
+maxlength="11">
+<div class="absolute inset-0 rounded-2xl pointer-events-none border border-yalda-gold/0 group-hover:border-yalda-gold/20 transition-all duration-500"></div>
+</div>
+
+<div id="status-msg" class="text-xs h-5 text-red-400 transition-opacity font-bold"></div>
+
+<button onclick="window.processFortune()" id="submitBtn" class="w-full bg-gradient-to-r from-[#600] to-[#300] text-yalda-gold border border-yalda-gold/40 font-bold py-4 rounded-2xl shadow-[0_5px_20px_rgba(0,0,0,0.5)] hover:shadow-[0_0_20px_rgba(212,175,55,0.3)] transition-all active:scale-95 flex justify-center items-center gap-3 group">
+<span id="btnText" class="group-hover:tracking-wide transition-all">مشاهده فال و نیت</span>
+<span id="btnLoader" class="loader hidden"></span>
+</button>
+</div>
+</section>
+
+<!-- صفحه ۲: نمایش فال -->
+<section id="page-result" class="hidden transition-all duration-700 transform scale-95 opacity-0">
+<div class="glass-panel rounded-3xl p-1 relative overflow-hidden">
+<!-- کادر تزیینی داخلی -->
+<div class="border border-yalda-gold/30 rounded-[20px] p-6 text-center bg-black/20">
+
+<div class="mb-5 flex justify-center items-center gap-2 opacity-70">
+<div class="h-[1px] w-8 bg-yalda-gold"></div>
+<span class="text-xs text-yalda-gold">پاسخ نیت شما</span>
+<div class="h-[1px] w-8 bg-yalda-gold"></div>
+</div>
+
+<h3 id="poem-title" class="text-xl text-white font-bold mb-6 font-serif drop-shadow-md"></h3>
+
+<div class="space-y-3 mb-8 text-yalda-light font-serif text-xl leading-9 drop-shadow-sm min-h-[100px] flex flex-col justify-center" id="poem-body">
+<!-- متن شعر -->
+</div>
+
+<div class="bg-gradient-to-b from-white/5 to-transparent rounded-xl p-4 mb-6 border-t border-white/10">
+<p class="text-xs text-gray-500 mb-2 uppercase tracking-wide">تفسیر فال:</p>
+<p id="poem-interpretation" class="text-sm text-gray-200 leading-7 text-justify"></p>
+</div>
+
+<!-- دکمه‌ها -->
+<div class="space-y-3">
+<button onclick="window.shareImage()" id="shareBtn" class="w-full bg-[#0f3b1e]/90 hover:bg-[#145229] text-white text-sm py-4 rounded-xl border border-white/10 transition-all flex items-center justify-center gap-2 shadow-lg">
+<span id="shareLoading" class="loader hidden w-4 h-4 border-white"></span>
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+<span>دانلود تصویر استوری (باکیفیت)</span>
+</button>
+
+<button onclick="window.resetApp()" class="w-full bg-transparent hover:bg-white/5 text-yalda-gold/80 hover:text-yalda-gold text-sm py-3 rounded-xl transition-colors border border-dashed border-yalda-gold/30">
+گرفتن فال جدید برای شخص دیگر
+</button>
+</div>
+</div>
+</div>
+</section>
+
+<footer class="mt-8 text-center pb-6">
+<p class="text-[10px] text-gray-600 font-light cursor-pointer select-none tracking-widest hover:text-yalda-gold transition-colors" onclick="window.adminTrigger()">© ROYAL PARS YALDA 2024</p>
+</footer>
+
+<!-- پنل ادمین -->
+<div id="admin-panel" class="fixed inset-0 bg-black/95 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+<div class="glass-panel p-6 rounded-2xl w-full max-w-sm border border-yalda-gold text-center">
+<h3 class="text-white mb-4 font-bold border-b border-gray-700 pb-2">پنل مدیریت دیتا</h3>
+<div id="admin-status" class="text-gray-400 text-xs mb-6 font-mono">Check DB connection...</div>
+<button onclick="window.downloadData()" id="dlBtn" class="bg-green-700 hover:bg-green-600 text-white px-4 py-3 rounded-xl w-full mb-3 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg font-bold">دانلود خروجی اکسل (CSV)</button>
+<button onclick="document.getElementById('admin-panel').classList.add('hidden')" class="text-gray-500 hover:text-white text-sm mt-2 transition-colors">بستن پنجره</button>
+</div>
+</div>
+
+</main>
+
+<!-- بوم نقاشی مخفی (برای تولید عکس) -->
+<canvas id="fortuneCanvas" width="1080" height="1920" class="hidden"></canvas>
+
+<!-- اسکریپت اصلی (ماژولار) -->
+<script type="module">
+// ایمپورت کتابخانه‌های فایربیس از CDN
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+
+// تنظیمات فایربیس شما (بدون تغییر)
+const firebaseConfig = {
+apiKey: "AIzaSyBwReVZ_GEYmfv-RMg73bLv8_Vbd5oNhWY",
+authDomain: "yalda-campaig.firebaseapp.com",
+projectId: "yalda-campaig",
+storageBucket: "yalda-campaig.firebasestorage.app",
+messagingSenderId: "515425679530",
+appId: "1:515425679530:web:a8e287e49b0d0e9056b8d3",
+measurementId: "G-0J1R5NH6FQ"
+};
+
+let db;
+let isReady = false;
+
+try {
+const app = initializeApp(firebaseConfig);
+db = getFirestore(app);
+const auth = getAuth(app);
+
+// لاگین ناشناس
+signInAnonymously(auth).then(() => {
+console.log("Firebase Connected ✅");
+isReady = true;
+const dlBtn = document.getElementById('dlBtn');
+if(dlBtn) dlBtn.disabled = false;
+const adminStat = document.getElementById('admin-status');
+if(adminStat) adminStat.innerText = "متصل به دیتابیس ✅";
+}).catch((error) => {
+console.error("Auth Failed", error);
+});
+} catch (e) {
+console.error("Init Error:", e);
+}
+
+// تابع پردازش شماره و نمایش فال
+window.processFortune = async function() {
+const phoneInp = document.getElementById('phoneNumber');
+const statusMsg = document.getElementById('status-msg');
+const btnText = document.getElementById('btnText');
+const btnLoader = document.getElementById('btnLoader');
+
+// نرمال‌سازی شماره (فارسی به انگلیسی)
+let phone = phoneInp.value;
+const map = { '۰':0, '۱':1, '۲':2, '۳':3, '۴':4, '۵':5, '۶':6, '۷':7, '۸':8, '۹':9 };
+phone = phone.replace(/[۰-۹]/g, w => map[w]).replace(/[^0-9]/g, '');
+
+if (!/^09[0-9]{9}$/.test(phone)) {
+statusMsg.innerText = "لطفاً شماره موبایل را صحیح وارد کنید (مثلاً ۰۹۱۲...)";
+return;
+}
+
+statusMsg.innerText = "";
+btnText.classList.add('hidden');
+btnLoader.classList.remove('hidden');
+
+try {
+if (isReady && db) {
+await addDoc(collection(db, "yalda_users"), {
+phone: phone,
+date: new Date().toISOString(),
+agent: navigator.userAgent
+});
+}
+} catch (error) { console.error("Save Error", error); }
+
+// نمایش UI فال
+window.showFortuneLogic();
+
+btnText.classList.remove('hidden');
+btnLoader.classList.add('hidden');
+};
+
+// تابع دانلود دیتا (ادمین)
+window.downloadData = async function() {
+if (!isReady) return alert("دیتابیس هنوز وصل نشده است.");
+const status = document.getElementById('admin-status');
+status.innerText = "در حال دریافت لیست...";
+
+try {
+const snapshot = await getDocs(collection(db, "yalda_users"));
+let csv = "\uFEFFشماره تماس,تاریخ ثبت\n";
+snapshot.forEach(doc => {
+const data = doc.data();
+const dateStr = data.date ? new Date(data.date).toLocaleString('fa-IR') : '-';
+csv += `${data.phone},${dateStr}\n`;
+});
+
+const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+const url = URL.createObjectURL(blob);
+const link = document.createElement("a");
+link.href = url;
+link.download = `yalda_users_${new Date().toLocaleDateString('fa-IR')}.csv`;
+document.body.appendChild(link);
+link.click();
+document.body.removeChild(link);
+status.innerText = "دانلود انجام شد ✅";
+} catch (e) {
+status.innerText = "خطا: " + e.message;
+}
+};
+</script>
+
+<!-- اسکریپت UI و فال (جداگانه برای راحتی) -->
+<script>
+// دیتابیس کامل ۵۰ غزل
+const hafezFals = [
+{ title: "الا یا ایها الساقی", poem: "الا یا ایها الساقی ادر کاسا و ناولها\nکه عشق آسان نمود اول ولی افتاد مشکل‌ها", interpretation: "راهی که در پیش گرفته‌ای ممکن است در ابتدا سخت به نظر برسد، اما با صبر و استقامت به نتیجه‌ای شیرین خواهی رسید." },
+{ title: "دل می‌رود ز دستم", poem: "دل می‌رود ز دستم صاحب دلان خدا را\nدردا که راز پنهان خواهد شد آشکارا", interpretation: "رازی در دل داری که سنگینی می‌کند. صداقت و روراستی کلید حل مشکل توست." },
+{ title: "اگر آن ترک شیرازی", poem: "اگر آن ترک شیرازی به دست آرد دل ما را\nبه خال هندویش بخشم سمرقند و بخارا را", interpretation: "قدرت عشق و بخشندگی در تو موج می‌زند. قدر لحظات با هم بودن را بدان." },
+{ title: "یوسف گمگشته", poem: "یوسف گمگشته باز آید به کنعان غم مخور\nکلبه احزان شود روزی گلستان غم مخور", interpretation: "روزهای سخت رو به پایان است. امیدت را از دست نده که خبرهای خوشی در راه است." },
+{ title: "ساقیا آمدن عید", poem: "ساقیا آمدن عید مبارک بادت\nوان مواعید که کردی مرواد از یادت", interpretation: "زمان تحقق وعده‌ها و آرزوها نزدیک است. شاد باش و دیگران را نیز شاد کن." },
+{ title: "رواق منظر چشم من", poem: "رواق منظر چشم من آشیانه توست\nکرم نما و فرود آ که خانه خانه توست", interpretation: "با آغوش باز پذیرای اتفاقات جدید باش. مهمانی عزیز یا فرصتی طلایی به سراغت می‌آید." },
+{ title: "دوش دیدم که ملائک", poem: "دوش دیدم که ملائک در میخانه زدند\nگل آدم بسرشتند و به پیمانه زدند", interpretation: "تو تنها نیستی و حمایت کائنات با توست. نیت پاکت راهگشای تو خواهد بود." },
+{ title: "مژده ای دل", poem: "مژده ای دل که مسیحا نفسی می‌آید\nکه ز انفاس خوشش بوی کسی می‌آید", interpretation: "انتظاری که می‌کشیدی به سر آمد. بوی بهبود اوضاع به مشام می‌رسد." },
+{ title: "روز هجران", poem: "روز هجران و شب فرقت یار آخر شد\nزدم این فال و گذشت اختر و کار آخر شد", interpretation: "دوران دوری و سختی تمام شده است. اکنون زمان آرامش و وصال است." },
+{ title: "صلاح کار کجا", poem: "صلاح کار کجا و من خراب کجا\nببین تفاوت ره از کجاست تا به کجا", interpretation: "خودت را با دیگران مقایسه نکن. مسیر تو منحصر به فرد است و به مقصد متفاوتی می‌رسد." },
+{ title: "خوشا شیراز", poem: "خوشا شیراز و وضع بی‌مثالش\nخداوندا نگه دار از زوالش", interpretation: "از لحظه حال لذت ببر و قدر داشته‌هایت را بدان. خوشبختی در همین نزدیکی است." },
+{ title: "در ازل پرتو حسنت", poem: "در ازل پرتو حسنت ز تجلی دم زد\nعشق پیدا شد و آتش به همه عالم زد", interpretation: "شور و اشتیاقی بزرگ در دلت ایجاد می‌شود. این عشق (زمینی یا آسمانی) تو را متحول می‌کند." },
+{ title: "عیب رندان مکن", poem: "عیب رندان مکن ای زاهد پاکیزه سرشت\nکه گناه دگران بر تو نخواهند نوشت", interpretation: "قضاوت کردن دیگران باری از دوش تو بر نمی‌دارد. بر روی اصلاح خودت تمرکز کن." },
+{ title: "سحر با باد می‌گفتم", poem: "سحر با باد می‌گفتم حدیث آرزومندی\nخطاب آمد که واثق شو به الطاف خداوندی", interpretation: "توکلت را به خدا از دست نده. آنچه صلاح توست در بهترین زمان اتفاق می‌افتد." },
+{ title: "بیا تا گل برافشانیم", poem: "بیا تا گل برافشانیم و می در ساغر اندازیم\nفلک را سقف بشکافیم و طرحی نو دراندازیم", interpretation: "زمان تغییر و تحول اساسی فرا رسیده است. جسارت به خرج بده و طرحی نو در زندگی‌ت بریز." }
+];
+
+let currentFortune = null;
+
+// منطق نمایش فال
+window.showFortuneLogic = function() {
+// انتخاب تصادفی
+const index = Math.floor(Math.random() * hafezFals.length);
+currentFortune = hafezFals[index];
+
+// جایگذاری در HTML
+document.getElementById('poem-title').innerText = currentFortune.title;
+document.getElementById('poem-body').innerHTML = currentFortune.poem.replace(/\n/g, '<br>');
+document.getElementById('poem-interpretation').innerText = currentFortune.interpretation;
+
+// انیمیشن تعویض صفحه
+const pLogin = document.getElementById('page-login');
+const pResult = document.getElementById('page-result');
+
+pLogin.classList.add('scale-95', 'opacity-0');
+setTimeout(() => {
+pLogin.classList.add('hidden');
+pResult.classList.remove('hidden');
+setTimeout(() => {
+pResult.classList.remove('scale-95', 'opacity-0');
+// تولید تصویر در پس‌زمینه
+window.drawCanvas();
+}, 50);
+}, 500);
+};
+
+// بازگشت به صفحه اول
+window.resetApp = function() {
+const pLogin = document.getElementById('page-login');
+const pResult = document.getElementById('page-result');
+
+pResult.classList.add('scale-95', 'opacity-0');
+setTimeout(() => {
+pResult.classList.add('hidden');
+pLogin.classList.remove('hidden');
+
+// ریست اینپوت
+document.getElementById('phoneNumber').value = '';
+
+setTimeout(() => {
+pLogin.classList.remove('scale-95', 'opacity-0');
+}, 50);
+}, 500);
+};
+
+// --------------------------------------------------
+// موتور گرافیکی تولید استوری (Canvas)
+// --------------------------------------------------
+window.drawCanvas = function() {
+const canvas = document.getElementById('fortuneCanvas');
+const ctx = canvas.getContext('2d');
+const width = 1080;
+const height = 1920;
+
+// 1. پس‌زمینه گرادینت
+const grad = ctx.createLinearGradient(0, 0, 0, height);
+grad.addColorStop(0, '#2b0505');
+grad.addColorStop(1, '#000000');
+ctx.fillStyle = grad;
+ctx.fillRect(0, 0, width, height);
+
+// 2. کادر طلایی
+ctx.strokeStyle = '#d4af37';
+ctx.lineWidth = 15;
+ctx.strokeRect(60, 60, width - 120, height - 120);
+ctx.lineWidth = 3;
+ctx.strokeRect(90, 90, width - 180, height - 180);
+
+// 3. هدر
+ctx.textAlign = 'center';
+ctx.fillStyle = '#d4af37';
+ctx.font = 'bold 80px "Arial", sans-serif';
+ctx.fillText('یلدای رویالی', width / 2, 300);
+
+ctx.fillStyle = '#aaaaaa';
+ctx.font = '40px "Arial"';
+ctx.fillText('ROYAL PARS SHOPPING CENTER', width / 2, 370);
+
+// 4. خط جداکننده
+ctx.beginPath();
+ctx.moveTo(300, 450);
+ctx.lineTo(width - 300, 450);
+ctx.strokeStyle = 'rgba(212, 175, 55, 0.5)';
+ctx.lineWidth = 2;
+ctx.stroke();
+
+// 5. عنوان شعر
+ctx.fillStyle = '#ffffff';
+ctx.font = 'bold 60px "Arial"';
+ctx.fillText(currentFortune.title, width / 2, 600);
+
+// 6. متن شعر
+ctx.font = '50px "Arial"';
+ctx.fillStyle = '#fff8dc';
+const lines = currentFortune.poem.split('\n');
+let y = 750;
+lines.forEach(line => {
+ctx.fillText(line, width/2, y);
+y += 110;
+});
+
+// 7. باکس تفسیر
+y += 100;
+ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+ctx.fillRect(120, y, width - 240, 500);
+
+ctx.fillStyle = '#d4af37';
+ctx.font = 'bold 45px "Arial"';
+ctx.fillText('تفسیر حافظ:', width / 2, y + 80);
+
+ctx.fillStyle = '#eeeeee';
+ctx.font = '40px "Arial"';
+const words = currentFortune.interpretation.split(' ');
+let line = '';
+let lineY = y + 160;
+
+// شکستن متن طولانی
+for(let n = 0; n < words.length; n++) {
+const testLine = line + words[n] + ' ';
+if (ctx.measureText(testLine).width > 750 && n > 0) {
+ctx.fillText(line, width/2, lineY);
+line = words[n] + ' ';
+lineY += 65;
+} else {
+line = testLine;
+}
+}
+ctx.fillText(line, width/2, lineY);
+
+// 8. فوتر
+ctx.fillStyle = '#555555';
+ctx.font = '30px "Arial"';
+ctx.fillText('www.royalpars.com', width / 2, height - 150);
+};
+
+// اشتراک گذاری
+window.shareImage = async function() {
+const btn = document.getElementById('shareBtn');
+const loader = document.getElementById('shareLoading');
+
+loader.classList.remove('hidden');
+btn.classList.add('opacity-80', 'cursor-not-allowed');
+
+try {
+const canvas = document.getElementById('fortuneCanvas');
+const dataUrl = canvas.toDataURL('image/png');
+const blob = await (await fetch(dataUrl)).blob();
+const file = new File([blob], 'royal-yalda-fortune.png', { type: 'image/png' });
+
+if (navigator.canShare && navigator.canShare({ files: [file] })) {
+await navigator.share({
+files: [file],
+title: 'فال یلدای رویالی',
+text: 'فال حافظ من در یلدای رویالی 🍉'
+});
+} else {
+// دانلود معمولی اگر شیر کار نکرد (دسکتاپ)
+const link = document.createElement('a');
+link.download = `royal-yalda-${Date.now()}.png`;
+link.href = dataUrl;
+link.click();
+}
+} catch (error) {
+console.error('Share failed:', error);
+// فال‌بک نهایی
+const canvas = document.getElementById('fortuneCanvas');
+const link = document.createElement('a');
+link.download = 'royal-yalda.png';
+link.href = canvas.toDataURL();
+link.click();
+} finally {
+loader.classList.add('hidden');
+btn.classList.remove('opacity-80', 'cursor-not-allowed');
+}
+};
+
+// تریگر مخفی ادمین
+let clicks = 0;
+window.adminTrigger = function() {
+clicks++;
+if (clicks === 5) {
+document.getElementById('admin-panel').classList.remove('hidden');
+clicks = 0;
+}
+};
+</script>
+</body>
+</html>
+
